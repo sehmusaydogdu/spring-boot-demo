@@ -39,7 +39,8 @@ public class CustomerService {
 	public Customer update(Long id, Customer customer) throws CloneNotSupportedException {
 		Customer db = repository.findById(id).get();
 		db.setName(customer.getName());
-		db.setBirthday(customer.getBirthday());
+		db.setSurname(customer.getSurname());
+		db.setAge(customer.getAge());
 		return repository.save(db);
 	}
 }

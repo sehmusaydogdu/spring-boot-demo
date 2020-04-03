@@ -1,7 +1,5 @@
 package com.example.demo.model;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,8 +13,8 @@ public class Customer implements Cloneable {
 	@GeneratedValue
 	private Long id;
 	private String name;
-	private Date birthday;
-	private boolean isCustomer;
+	private String surname;
+	private int age;
 
 	public Long getId() {
 		return id;
@@ -34,24 +32,34 @@ public class Customer implements Cloneable {
 		this.name = name;
 	}
 
-	public Date getBirthday() {
-		return birthday;
-	}
-
-	public void setBirthday(Date birthday) {
-		this.birthday = new Date();
-	}
-
-	public boolean isCustomer() {
-		return isCustomer;
-	}
-
-	public void setCustomer(boolean isCustomer) {
-		this.isCustomer = isCustomer;
-	}
-
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("id=[").append(this.getId()).append("] ");
+		builder.append("name=[").append(this.getName()).append("] ");
+		builder.append("surname=[").append(this.getSurname()).append("] ");
+		builder.append("age=[").append(this.getAge()).append("] ");
+		return builder.toString();
 	}
 }
