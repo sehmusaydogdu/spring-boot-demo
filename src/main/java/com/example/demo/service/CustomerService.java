@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,8 @@ public class CustomerService {
 		return repository.findAll();
 	}
 
-	public Customer getID(Long id) {
-		return repository.findById(id).get();
+	public Optional<Customer> getID(Long id) {
+		return repository.findById(id);
 	}
 
 	public List<Customer> getName(String name) {
@@ -35,8 +36,14 @@ public class CustomerService {
 		repository.deleteById(id);
 		return customer;
 	}
+	
+	public Optional<Customer> optDelete(Long id) {
+		Optional<Customer> customer = repository.findById(id);
+		repository.deleteById(id);
+		return customer;
+	}
 
-	public Customer update(Long id, Customer customer) throws CloneNotSupportedException {
+	public Customer update(Long id, Customer customer){
 		Customer db = repository.findById(id).get();
 		db.setName(customer.getName());
 		db.setSurname(customer.getSurname());

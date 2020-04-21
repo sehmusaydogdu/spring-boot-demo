@@ -33,8 +33,12 @@ public class Customer implements Cloneable {
 	}
 
 	@Override
-	public Object clone() throws CloneNotSupportedException {
-		return super.clone();
+	public Object clone() {
+		try {
+			return super.clone();
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	public int getAge() {
@@ -52,7 +56,7 @@ public class Customer implements Cloneable {
 	public void setSurname(String surname) {
 		this.surname = surname;
 	}
-	
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();

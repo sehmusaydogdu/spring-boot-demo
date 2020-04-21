@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.ConstraintViolationException;
 
@@ -42,10 +43,10 @@ public class CustomerController {
 	}
 
 	@GetMapping("/get/{id}")
-	public ResponseEntity<Customer> get(@PathVariable("id") Long id) {
+	public ResponseEntity<Optional<Customer>> get(@PathVariable("id") Long id) {
 		try {
-			Customer customer = service.getID(id);
-			if (customer == null) {
+			Optional<Customer> customer = service.getID(id);
+			if (customer.isPresent()==false) {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 			}
 			return ResponseEntity.ok().body(customer);
@@ -64,7 +65,7 @@ public class CustomerController {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
 		}
 	}
-
+	
 	@PostMapping("/post")
 	public ResponseEntity<Customer> save(@RequestBody Customer customer) {
 		try {
@@ -101,7 +102,7 @@ public class CustomerController {
 	public ApiResponse<Customer> update(@PathVariable("id") Long id, @RequestBody Customer customer) {
 		ApiResponse<Customer> response = new ApiResponse<>();
 		try {
-			response.setOldValue((Customer) service.getID(id).clone());
+			response.setOldValue((Customer) service.getID(id).get().clone());
 			response.setNewValue(service.update(id, customer));
 			response.setStatus(true);
 			response.setMessage("OK");

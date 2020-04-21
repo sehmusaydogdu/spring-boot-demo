@@ -1,0 +1,3 @@
+spring:
+  application:
+    name: "demo"  mail:    port: 20
